@@ -192,7 +192,7 @@ CHAIN="POSTROUTING"
 VPS_DEFAULT_INTERFACE=$(/sbin/ip route | awk '/default/ {print $5}')
 
 # REMOVE DEFAULT ROUTE FOR VPN SERVER
-RULE_NUMBER=$(/sbin/iptables -t \$NAT_TABLE -L \$CHAIN -v -n --line-numbers | \
+RULE_NUMBER=\$(/sbin/iptables -t \$NAT_TABLE -L \$CHAIN -v -n --line-numbers | \
               awk -v src="\$subnetVPNserver" -v out="\$VPS_DEFAULT_INTERFACE" \
               '$0 ~ src && $0 ~ out && $0 ~ "MASQUERADE" {print $1}')
 
