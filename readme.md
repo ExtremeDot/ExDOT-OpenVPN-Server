@@ -134,3 +134,14 @@ Enter the Remote Port for Loadbalance Group 1: 1194
 
 ---
 now get the .ovpn config and change the server address to your domestic vps in ovpn file and run it.
+
+----------
+### Wireguard Warp 
+
+```
+sudo systemctl enable wg-quick@ovpn_warp
+```
+
+```
+sudo systemctl start wg-quick@ovpn_warp
+```
