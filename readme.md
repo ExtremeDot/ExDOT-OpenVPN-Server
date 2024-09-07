@@ -146,6 +146,13 @@ sudo systemctl enable wg-quick@ovpn_warp
 sudo systemctl start wg-quick@ovpn_warp
 ```
 
+```
+sudo wg-quick up ovpn_warp
+```
+
+```
+sudo wg-quick down ovpn_warp
+
 ##### Extra debugging commands
 
 - table=1000
@@ -156,4 +163,16 @@ ip route show table $table
 
 ```
 /sbin/ip rule | grep $table
+```
+
+###### Display the current NAT
+```
+/sbin/iptables-save -t nat
+```
+
+###### Remove the default route for OpenVPn
+
+```
+sudo iptables -t nat -D POSTROUTING -s 10.8.0.0/24 -o eth0 -j MASQUERADE
+
 ```
