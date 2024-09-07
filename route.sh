@@ -8,6 +8,12 @@ NC='\033[0m' # No Color
 
 echo 
 echo -e "${YELLOW} eXtreme Panel - routing Interface throug Interface ---[Version: $ROUTE_VERSION]${NC}"
+echo "This script redirect all trafics from VPN Server into Selected Interface"
+echo "I made this script to route all openVPN server clients into WarpCloudflare Wireguard Client"
+echo "You can run any VPN Client on your server and do it the same ,"
+echo "For example run ExpressVPN Client on your server and Install OpenVPN Server, then -"
+echo " - Redirect All OpenVPN clients into ExpressVPN Client"
+echo ""
 
 # Function to install a package if it is not installed
 install_package() {
@@ -181,25 +187,18 @@ cat << EOF > /usr/local/etc/eXtremePanel/database/wg_${interfaceDestination}_up.
 #!/bin/bash
 
 # Assign variables
+VPS_DEFAULT_INTERFACE=$(/sbin/ip route | awk '/default/ {print $5}')
 interfaceVPNserver=$iface
 subnetVPNserver=$vpn_subnet
 subnetDestination=$subnet
 ipDestination=$route_ip
 interfaceDestination=$route_iface
 TABLE=$table_number
-NAT_TABLE="nat"
-CHAIN="POSTROUTING"
-VPS_DEFAULT_INTERFACE=$(/sbin/ip route | awk '/default/ {print $5}')
 
-# REMOVE DEFAULT ROUTE FOR VPN SERVER
-RULE_NUMBER=\$(/sbin/iptables -t \$NAT_TABLE -L \$CHAIN -v -n --line-numbers | \
-              awk -v src="\$subnetVPNserver" -v out="\$VPS_DEFAULT_INTERFACE" \
-              '$0 ~ src && $0 ~ out && $0 ~ "MASQUERADE" {print $1}')
-
-if [ -n "\$RULE_NUMBER" ]; then
-	/sbin/iptables -t \$NAT_TABLE -D \$CHAIN \$RULE_NUMBER
-fi
-
+# Remove All previuos Routing for $interfaceVPNserver
+for rule_num in \$(sudo iptables -t nat -L POSTROUTING --line-numbers -n | grep "$subnetVPNserver" | awk '{print \$1}' | sort -r); do
+    /sbin/iptables -t nat -D POSTROUTING \$rule_num
+done
 
 # Add routes and rules
 /sbin/ip route add \$subnetVPNserver dev \$interfaceVPNserver table \$TABLE
