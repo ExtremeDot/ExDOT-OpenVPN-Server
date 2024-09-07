@@ -13,11 +13,18 @@
 bash -c "$(curl -H 'Cache-Control: no-cache' -L https://raw.githubusercontent.com/ExtremeDot/eXtremePanel/master/extPanel.sh )"
 ```
 
-##### After installing you can execute "eXtPanel" command to run script.
-
+###### After installing you can execute "eXtPanel" command to run script.
 ```
 eXtPanel
 ```
+
+
+##### Route Script
+
+```
+bash -c "$(curl -H 'Cache-Control: no-cache' -L https://raw.githubusercontent.com/ExtremeDot/eXtremePanel/master/route.sh )"
+```
+
 ----
 
 ### Need Tunneling?
