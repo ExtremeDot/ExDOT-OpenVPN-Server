@@ -12,3 +12,5 @@
 ```
 bash -c "$(curl -H 'Cache-Control: no-cache' -L https://raw.githubusercontent.com/ExtremeDot/eXtremePanel/master/extPanel.sh )"
 ```
+
+##### After installing you can run "eXtPanel" command to run script.
