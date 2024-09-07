@@ -159,24 +159,18 @@ echo -e "${YELLOW}TABLE:${NC} $table_number"
 
 # Create routing table commands
 echo -e "${CYAN}Creating routing table entries...${NC}"
-echo "1"
 /sbin/ip route add $subnetVPNserver dev $interfaceVPNserver table $table_number
-echo "2"
 /sbin/ip route add $subnetDestination dev $interfaceDestination table $table_number
-echo "3"
 /sbin/ip route add default via $ipDestination dev $interfaceDestination table $table_number
 
 # Create IP rules
 echo -e "${CYAN}Creating IP rules...${NC}"
-echo "4"
 /sbin/ip rule add iif $interfaceDestination lookup $table_number
 
-echo "5"
 /sbin/ip rule add iif $interfaceVPNserver lookup $table_number
 
 # Configure iptables for NAT
 echo -e "${CYAN}Configuring iptables for NAT...${NC}"
-echo "6"
 /sbin/iptables -t nat -A POSTROUTING -s $subnetVPNserver -o $interfaceDestination -j MASQUERADE
 
 ##########
@@ -196,17 +190,22 @@ interfaceDestination=$route_iface
 TABLE=$table_number
 
 # Remove All previuos Routing for $interfaceVPNserver
-for rule_num in \$(sudo iptables -t nat -L POSTROUTING --line-numbers -n | grep "$subnetVPNserver" | awk '{print \$1}' | sort -r); do
+for rule_num in \$(/sbin/iptables -t nat -L POSTROUTING --line-numbers -n | grep "$subnetVPNserver" | awk '{print \$1}' | sort -r); do
     /sbin/iptables -t nat -D POSTROUTING \$rule_num
 done
 
+sleep 2
 # Add routes and rules
 /sbin/ip route add \$subnetVPNserver dev \$interfaceVPNserver table \$TABLE
+sleep 2
 /sbin/ip route add \$subnetDestination dev \$interfaceDestination table \$TABLE
+sleep 2
 /sbin/ip route add default via \$ipDestination dev \$interfaceDestination table \$TABLE
+sleep 2
 /sbin/ip rule add iif \$interfaceDestination lookup \$TABLE
+sleep 2
 /sbin/ip rule add iif \$interfaceVPNserver lookup \$TABLE
-
+sleep 2
 # Apply NAT
 /sbin/iptables -t nat -A POSTROUTING -s \$subnetVPNserver -o \$interfaceDestination -j MASQUERADE
 
