@@ -36,9 +36,13 @@ eXtPanel
   ```
   https://github.com/Azumi67/FRP_Reverse_Loadbalance
   ```
+
+  ```
+  https://github.com/Azumi67/PrivateIP_TCP-UDP_Tunnel
+  ```
 ----
 
-### Guide
+### Guides
 
 ##### REVERSE FRP KCP Tunnel GUIDE
 
