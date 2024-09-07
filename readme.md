@@ -13,4 +13,26 @@
 bash -c "$(curl -H 'Cache-Control: no-cache' -L https://raw.githubusercontent.com/ExtremeDot/eXtremePanel/master/extPanel.sh )"
 ```
 
-##### After installing you can run "eXtPanel" command to run script.
+##### After installing you can execute "eXtPanel" command to run script.
+
+```
+eXtPanel
+```
+----
+
+### Nedd Tunneling?
+
+##### Tunneling Between Domestic and Non-Restricted Servers guides
+  -you can use below methods
+  
+  ```
+  https://github.com/Azumi67/FRP-Wireguard
+  ```
+
+  ```
+  https://github.com/Azumi67/Rathole_reverseTunnel
+  ```
+
+  ```
+  https://github.com/Azumi67/FRP_Reverse_Loadbalance
+  ```
