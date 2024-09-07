@@ -145,3 +145,15 @@ sudo systemctl enable wg-quick@ovpn_warp
 ```
 sudo systemctl start wg-quick@ovpn_warp
 ```
+
+##### Extra debugging commands
+
+- table=1000
+
+```
+ip route show table $table
+```
+
+```
+/sbin/ip rule | grep $table
+```
