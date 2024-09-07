@@ -1,10 +1,13 @@
 #!/bin/bash
-
+ROUTE_VERSION=1.0
 # Define color codes
 RED='\033[0;31m'
 GREEN='\033[0;32m'
 YELLOW='\033[0;33m'
 NC='\033[0m' # No Color
+
+echo 
+echo -e "${YELLOW} eXtreme Panel - routing Interface throug Interface ---[Version: $ROUTE_VERSION]${NC}"
 
 # Function to install a package if it is not installed
 install_package() {
