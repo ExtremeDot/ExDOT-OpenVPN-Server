@@ -2136,15 +2136,13 @@ if [[ -e $SERVER_CONFIG_FILE && $AUTO_INSTALL != "y" ]]; then
 	manageMenu
 else
 	installOpenVPN
-	TARGET_DIR="/usr/local/etc/eXtremePanel/eXtremePanel"
+	TARGET_FILE="/usr/local/bin/eXtPanel"
 	wget -O /tmp/script.sh "$SCRIPT_URL_ADDRESS"
 	if [ $? -ne 0 ]; then
 	  echo "Failed to download the script."
 	  exit 1
 	fi
-	mkdir -p "$TARGET_DIR"
-	cp /tmp/script.sh "$TARGET_DIR"
-	chmod +x "$TARGET_DIR/script.sh"
-
-	echo "execute eXtremePanel command to run eXtremePanel."
+	mv /tmp/script.sh "$TARGET_FILE"
+	chmod +x "$TARGET_FILE"
+	echo "execute eXtPanel command to run eXtremePanel."
 fi
