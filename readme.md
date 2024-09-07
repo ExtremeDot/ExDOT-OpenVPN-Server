@@ -10,5 +10,5 @@
 ### Install
 
 ```
-bash -c "$(curl -H 'Cache-Control: no-cache' -L url_address )" @ install
+bash -c "$(curl -H 'Cache-Control: no-cache' -L https://raw.githubusercontent.com/ExtremeDot/eXtremePanel/master/extPanel.sh )"
 ```
