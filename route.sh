@@ -173,8 +173,8 @@ echo "6"
 ##########
 mkdir -p /usr/local/etc/eXtremePanel/database/
 
-echo "Writing wireguard_up.sh file."
-cat << EOF > /usr/local/etc/eXtremePanel/database/wireguard_up.sh
+echo "Writing wg_${interfaceDestination}_up.sh file."
+cat << EOF > /usr/local/etc/eXtremePanel/database/wg_${interfaceDestination}_up.sh
 #!/bin/bash
 
 # Assign variables
@@ -197,8 +197,8 @@ TABLE=$table_number
 EOF
 
 #########
-echo "Writing wireguard_down.sh file."
-cat << EOF > /usr/local/etc/eXtremePanel/database/wireguard_down.sh
+echo "Writing wg_${interfaceDestination}_down.sh file."
+cat << EOF > /usr/local/etc/eXtremePanel/database/wg_${interfaceDestination}_down.sh
 #!/bin/bash
 
 # Assign variables
@@ -221,8 +221,8 @@ TABLE=$table_number
 EOF
 
 #######
-chmod +x /usr/local/etc/eXtremePanel/database/wireguard_down.sh
-chmod +x /usr/local/etc/eXtremePanel/database/wireguard_up.sh
+chmod +x /usr/local/etc/eXtremePanel/database/wg_${interfaceDestination}_down.sh
+chmod +x /usr/local/etc/eXtremePanel/database/wg_${interfaceDestination}_up.sh
 
 read -p "Do you want to add the PostUp and PreDown scripts to a WireGuard config file? (yes/no): " add_scripts
 
@@ -249,8 +249,8 @@ if [[ "$add_scripts" == "yes" ]]; then
 
     selected_config="${config_files[$((selected_number-1))]}"
     
-    awk -v up_script="/usr/local/etc/eXtremePanel/database/wireguard_up.sh" \
-        -v down_script="/usr/local/etc/eXtremePanel/database/wireguard_down.sh" \
+    awk -v up_script="/usr/local/etc/eXtremePanel/database/wg_${interfaceDestination}_up.sh" \
+        -v down_script="/usr/local/etc/eXtremePanel/database/wg_${interfaceDestination}_down.sh" \
         'BEGIN { added=0 }
          /^\[Peer\]/ && !added { 
              print "PostUp = " up_script; 
