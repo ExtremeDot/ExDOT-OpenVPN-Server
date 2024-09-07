@@ -156,6 +156,7 @@ sudo wg-quick down ovpn_warp
 ##### Extra debugging commands
 
 - table=1000
+```
 
 ```
 ip route show table $table
