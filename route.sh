@@ -187,6 +187,19 @@ subnetDestination=$subnet
 ipDestination=$route_ip
 interfaceDestination=$route_iface
 TABLE=$table_number
+NAT_TABLE="nat"
+CHAIN="POSTROUTING"
+VPS_DEFAULT_INTERFACE=$(/sbin/ip route | awk '/default/ {print $5}')
+
+# REMOVE DEFAULT ROUTE FOR VPN SERVER
+RULE_NUMBER=$(/sbin/iptables -t \$NAT_TABLE -L \$CHAIN -v -n --line-numbers | \
+              awk -v src="\$subnetVPNserver" -v out="\$VPS_DEFAULT_INTERFACE" \
+              '$0 ~ src && $0 ~ out && $0 ~ "MASQUERADE" {print $1}')
+
+if [ -n "\$RULE_NUMBER" ]; then
+	/sbin/iptables -t \$NAT_TABLE -D \$CHAIN \$RULE_NUMBER
+fi
+
 
 # Add routes and rules
 /sbin/ip route add \$subnetVPNserver dev \$interfaceVPNserver table \$TABLE
@@ -197,6 +210,7 @@ TABLE=$table_number
 
 # Apply NAT
 /sbin/iptables -t nat -A POSTROUTING -s \$subnetVPNserver -o \$interfaceDestination -j MASQUERADE
+
 EOF
 
 #########
