@@ -153,9 +153,11 @@ sudo wg-quick up ovpn_warp
 ```
 sudo wg-quick down ovpn_warp
 
+```
 ##### Extra debugging commands
 
-- table=1000
+```
+table=1000
 ```
 
 ```
