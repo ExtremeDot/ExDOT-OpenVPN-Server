@@ -2,7 +2,7 @@
 
 ##### This is a persoanl project and based on Angristan work
 
-*ScreenShot
+
 ![image](https://github.com/user-attachments/assets/23a86619-fbc5-4325-af13-ee8d1af2c382)
 
 
